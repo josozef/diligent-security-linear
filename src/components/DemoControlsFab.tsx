@@ -133,11 +133,16 @@ export function DemoControlsFab() {
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "fixed bottom-6 right-4 z-[120] size-14 shrink-0 rounded-full border-2 border-blue-500 p-0",
-          "bg-destructive text-destructive-foreground shadow-lg hover:bg-destructive/90",
+          "fixed bottom-6 right-4 z-[120] size-14 shrink-0 rounded-full border-2 p-0 shadow-lg",
+          "border-emerald-400/60 bg-emerald-100 text-emerald-900",
+          "hover:border-emerald-500/80 hover:bg-emerald-200/90",
+          "dark:border-emerald-600/85 dark:bg-emerald-950 dark:text-emerald-50",
+          "dark:hover:border-emerald-500 dark:hover:bg-emerald-900",
+          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+          "focus-visible:outline-emerald-600 dark:focus-visible:outline-emerald-400",
         )}
       >
-        <Lightbulb className="size-6" />
+        <Lightbulb className="size-6" strokeWidth={1.75} />
       </Button>
     </>
   )

@@ -1,5 +1,5 @@
 import { Shield, BookOpen, ClipboardCheck, Users } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 
 const activities = [
   {
@@ -26,28 +26,38 @@ const activities = [
     description: "3 vendors flagged for SLA non-compliance",
     timestamp: "2 days ago",
   },
-]
+] as const
+
+const ctaCardClass = cn(
+  "flex w-full gap-3 rounded-xl bg-card text-left text-sm text-card-foreground ring-1 ring-foreground/10",
+  "transition-all duration-200 ease-out",
+  "hover:-translate-y-0.5 hover:bg-muted/30 hover:shadow-md hover:ring-foreground/25",
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+  "active:translate-y-0 active:shadow-sm",
+)
 
 export function RecentActivity() {
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       <h2 className="text-sm font-semibold tracking-tight">Recent Activity</h2>
       <div className="grid gap-3 md:grid-cols-2">
         {activities.map((activity) => (
-          <Card key={activity.title} size="sm">
-            <CardContent className="flex gap-3">
-              <activity.icon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-              <div className="min-w-0 space-y-0.5">
-                <p className="text-sm font-medium">{activity.title}</p>
-                <p className="text-sm text-muted-foreground">
-                  {activity.description}
-                </p>
-                <p className="text-xs text-muted-foreground/70">
-                  {activity.timestamp}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          <button
+            key={activity.title}
+            type="button"
+            className={cn(ctaCardClass, "px-3 py-3")}
+            aria-label={`${activity.title}. ${activity.description}. ${activity.timestamp}.`}
+          >
+            <activity.icon
+              className="mt-0.5 size-4 shrink-0 text-muted-foreground"
+              aria-hidden
+            />
+            <div className="min-w-0 space-y-0.5">
+              <p className="text-sm font-medium">{activity.title}</p>
+              <p className="text-sm text-muted-foreground">{activity.description}</p>
+              <p className="text-xs text-muted-foreground/80">{activity.timestamp}</p>
+            </div>
+          </button>
         ))}
       </div>
     </div>

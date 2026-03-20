@@ -7,12 +7,16 @@ import { CommandCenterPage } from "@/pages/CommandCenterPage"
 import { SettingsPage } from "@/pages/SettingsPage"
 import { IncidentInvestigationPage } from "@/pages/IncidentInvestigationPage"
 
+/** Fills viewport under AppShell; main scrolls so fixed FAB does not trap overflow. */
 function CenteredLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
       <GlobalHeader />
-      <main className="mx-auto w-full max-w-[980px] px-4">{children}</main>
-    </>
+      <main className="mx-auto min-h-0 w-full max-w-[980px] flex-1 overflow-y-auto overscroll-contain px-4">
+        {children}
+      </main>
+      <DemoControlsFab />
+    </div>
   )
 }
 
@@ -26,28 +30,26 @@ function AppShell() {
           <Route
             path="/"
             element={
-              <>
-                <CenteredLayout>
-                  <CommandCenterPage />
-                </CenteredLayout>
-                <DemoControlsFab />
-              </>
+              <CenteredLayout>
+                <CommandCenterPage />
+              </CenteredLayout>
             }
           />
           <Route
             path="/settings"
             element={
-              <>
-                <CenteredLayout>
-                  <SettingsPage />
-                </CenteredLayout>
-                <DemoControlsFab />
-              </>
+              <CenteredLayout>
+                <SettingsPage />
+              </CenteredLayout>
             }
           />
           <Route
             path="/investigate/:incidentId"
-            element={<IncidentInvestigationPage />}
+            element={
+              <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+                <IncidentInvestigationPage />
+              </div>
+            }
           />
         </Routes>
       </div>

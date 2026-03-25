@@ -64,14 +64,9 @@ export function IncidentInvestigationPage() {
     sessionStorage.removeItem(STORAGE_KEY)
   }, [])
 
-  const handleStepClick = useCallback(
-    (step: number) => {
-      if (step <= currentStep || completedSteps.includes(step)) {
-        setCurrentStep(step)
-      }
-    },
-    [currentStep, completedSteps]
-  )
+  const handleStepClick = useCallback((step: number) => {
+    setCurrentStep(step)
+  }, [])
 
   function renderPanel() {
     switch (currentStep) {

@@ -1,9 +1,15 @@
+import { lazy, Suspense } from "react"
 import {
   OPERATIONAL_TRENDS_SUBTITLE,
   OPERATIONAL_TRENDS_TITLE,
-  OperationalMonitoringCharts,
-} from "@/components/OperationalTrends"
+} from "@/lib/operationalTrendsCopy"
 import { cn } from "@/lib/utils"
+
+const OperationalMonitoringCharts = lazy(() =>
+  import("@/components/OperationalTrends").then((m) => ({
+    default: m.OperationalMonitoringCharts,
+  }))
+)
 
 const tasks = [
   {
@@ -81,7 +87,13 @@ export function ProactiveTasks() {
       </ul>
 
       <div className="col-start-1 row-start-6 mt-3 min-w-0 md:col-start-2 md:row-start-3 md:mt-0">
-        <OperationalMonitoringCharts />
+        <Suspense
+          fallback={
+            <div className="h-48 animate-pulse rounded-lg border border-border/60 bg-muted/30" />
+          }
+        >
+          <OperationalMonitoringCharts />
+        </Suspense>
       </div>
     </div>
   )

@@ -30,8 +30,13 @@ function MiniLineChart({
   valueLabel: string
 }) {
   return (
-    <div className="h-[132px] w-full">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="h-[132px] w-full min-w-0 shrink-0">
+      <ResponsiveContainer
+        width="100%"
+        height="100%"
+        minWidth={0}
+        initialDimension={{ width: 400, height: 132 }}
+      >
         <LineChart data={data} margin={{ left: 0, right: 4, top: 4, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} className="opacity-50" />
           <XAxis dataKey="day" tick={tickStyle} axisLine={{ stroke: "var(--border)" }} tickLine={{ stroke: "var(--border)" }} interval={2} />
@@ -87,11 +92,6 @@ function TrendCard({
     </div>
   )
 }
-
-export const OPERATIONAL_TRENDS_TITLE = "Operational trends"
-
-export const OPERATIONAL_TRENDS_SUBTITLE =
-  "Rolling 14-day view of signals we watch for your environment (demo data)."
 
 export function OperationalMonitoringCharts() {
   return (
